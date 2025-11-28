@@ -69,9 +69,9 @@ class StoreViewSet(viewsets.ModelViewSet):
         stores = Store.objects.all()
         grouped = defaultdict(list)
 
-        for store in stores:
-            serialized = StoreSerializer(store, context={'request': request}).data
-            grouped[store.category].append(serialized)
+        for i in stores:
+            serialized = StoreSerializer(i, context={'request': request}).data
+            grouped[i.category].append(serialized)
 
         return Response(grouped)
 
