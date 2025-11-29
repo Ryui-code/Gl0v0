@@ -75,7 +75,7 @@ class Cart(models.Model):
     quantity = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
-        return self.item
+        return self.item[:10]
 
 class Order(models.Model):
     your_cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
