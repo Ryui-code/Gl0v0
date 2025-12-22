@@ -27,7 +27,7 @@ CATEGORY_CHOICES = [
 class User(AbstractUser):
     status = models.CharField(choices=STATUS_CHOICES, default='Client')
     data_registered = models.DateField(auto_now_add=True)
-    token = models.CharField(max_length=32, null=True, blank=True)
+    token = models.CharField(max_length=16, null=True, blank=True, unique=True)
 
     def __str__(self):
         return self.username
@@ -57,7 +57,7 @@ class Store(models.Model):
     def average_rating(self):
         ratings = self.ratings.all()
         if ratings.exists():
-            return round(sum(r.rate for r in ratings) / ratings.count(), 2)
+            return round(sum(i.rate for i in ratings) / ratings.count(), 2)
         return None
 
 class StoreRating(models.Model):
@@ -87,10 +87,10 @@ class Order(models.Model):
         return self.address
 
 class CourierRating(models.Model):
-    courier = models.ForeignKey(User, on_delete=models.CASCADE)
+    courier = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courier')
     rate = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     description = models.TextField()
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.courier} - {self.rate}/5"
+        return f'{self.courier} - {self.rate}/5'

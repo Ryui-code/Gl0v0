@@ -57,7 +57,6 @@ AUTH_USER_MODEL = 'glovo.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'glovo.authentication.CookieTokenAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (

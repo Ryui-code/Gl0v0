@@ -26,8 +26,8 @@ class RegisterGenericAPIView(GenericAPIView):
             key='auth_token',
             value=user.token,
             httponly=True,
-            secure=False,
-            samesite='Lax'
+            secure=True,
+            samesite='Strict'
         )
         return response
 
@@ -44,8 +44,8 @@ class LoginGenericAPIView(GenericAPIView):
             key='auth_token',
             value=user.token,
             httponly=True,
-            secure=False,
-            samesite='Lax'
+            secure=True,
+            samesite='Strict'
         )
         return response
 
@@ -104,10 +104,16 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [StatusBasedPermission]
 
+    def get_queryset(self):
+        return Order.objects.filter(id=self.request.user.id)
+
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     permission_classes = [StatusBasedPermission]
+
+    def get_queryset(self):
+        return Cart.objects.filter(id=self.request.user.id)
 
 class CourierRatingViewSet(viewsets.ModelViewSet):
     queryset = CourierRating.objects.all()

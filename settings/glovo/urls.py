@@ -4,11 +4,11 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'profile', ProfileViewSet, basename='profile')
-router.register(r'store', StoreViewSet, basename='store')
-router.register(r'store-rating', StoreRatingViewSet, basename='store_rating')
+router.register(r'stores', StoreViewSet, basename='store')
+router.register(r'store-ratings', StoreRatingViewSet, basename='store_rating')
 router.register(r'order', OrderViewSet, basename='order')
 router.register(r'cart', CartViewSet, basename='cart')
-router.register(r'courier-rating', CourierRatingViewSet, basename='courier_rating')
+router.register(r'courier-ratings', CourierRatingViewSet, basename='courier_rating')
 
 urlpatterns = [
     path('register/', RegisterGenericAPIView.as_view(), name='register'),

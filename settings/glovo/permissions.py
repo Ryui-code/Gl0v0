@@ -10,7 +10,7 @@ class StatusBasedPermission(BasePermission):
         try:
             model_name = view.get_queryset().model.__name__
         except Exception:
-            return True
+            return False
 
         if status == 'Seller':
             if model_name == 'Store':
