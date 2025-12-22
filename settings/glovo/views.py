@@ -86,7 +86,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RegisterSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
+    def get_queryset(self): # чтобы возвращал только твои запросы
         return User.objects.filter(id=self.request.user.id)
 
 class StoreDetailView(RetrieveAPIView):
@@ -104,7 +104,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [StatusBasedPermission]
 
-    def get_queryset(self):
+    def get_queryset(self): # чтобы возвращал только твои запросы
         return Order.objects.filter(id=self.request.user.id)
 
 class CartViewSet(viewsets.ModelViewSet):
@@ -112,7 +112,7 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
     permission_classes = [StatusBasedPermission]
 
-    def get_queryset(self):
+    def get_queryset(self): # чтобы возвращал только твои запросы
         return Cart.objects.filter(id=self.request.user.id)
 
 class CourierRatingViewSet(viewsets.ModelViewSet):

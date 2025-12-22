@@ -61,13 +61,13 @@ class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
         fields = ['id', 'store_image', 'store_name', 'description', 'category', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5', 'item_6', 'item_7', 'item_8', 'item_9', 'item_10', 'owner', 'username', 'contact_phone_number', 'website', 'average_rating']
-        read_only_fields = ['owner'] # писать все вручную когда используется def avg_rating(self):
+        read_only_fields = ['owner'] # писать все вручную когда используется def avg_rating(self): в models.py
 
     def create(self, validated_data):
         validated_data['owner'] = self.context['request'].user
         return super().create(validated_data)
 
-    def get_username(self, obj):
+    def get_username(self, obj): # чтобы выходил name а не id
         return obj.owner.username
 
 class StoreRatingSerializer(serializers.ModelSerializer):
@@ -77,7 +77,7 @@ class StoreRatingSerializer(serializers.ModelSerializer):
         model = StoreRating
         fields = ['id', 'store', 'store_name', 'rate', 'description', 'created_date']
 
-    def get_store_name(self, obj):
+    def get_store_name(self, obj): # чтобы выходил name а не id
         return obj.store.store_name
 
 class CartSerializer(serializers.ModelSerializer):
@@ -97,5 +97,5 @@ class CourierRatingSerializer(serializers.ModelSerializer):
         model = CourierRating
         fields = ['id', 'courier', 'username', 'rate', 'description', 'created_date']
 
-    def get_username(self, obj):
+    def get_username(self, obj): # чтобы выходил name а не id
         return obj.courier.username
